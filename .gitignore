@@ -1,0 +1,5 @@
+.directory
+.idea
+debug.log
+vendor
+bin/*
