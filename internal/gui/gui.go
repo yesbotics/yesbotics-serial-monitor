@@ -122,6 +122,7 @@ func New(appConfig config.AppConfig) (*Gui, error) {
 
 func (g *Gui) quit() {
 	g.app.Stop()
+	_ = g.disconnect()
 	os.Exit(0)
 }
 
