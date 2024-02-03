@@ -49,10 +49,6 @@ const (
 	MessageError
 )
 
-func Quit() {
-	os.Exit(0)
-}
-
 func New(appConfig config.AppConfig) (*Gui, error) {
 	gui := &Gui{
 		appConfig: appConfig,
@@ -97,7 +93,7 @@ func New(appConfig config.AppConfig) (*Gui, error) {
 		case tcell.KeyCtrlH:
 			gui.appConfig.Config.ShowHex = !gui.appConfig.Config.ShowHex
 		case tcell.KeyCtrlQ:
-			Quit()
+			gui.quit()
 		default:
 		}
 		return event
@@ -122,6 +118,11 @@ func New(appConfig config.AppConfig) (*Gui, error) {
 	}
 
 	return gui, nil
+}
+
+func (g *Gui) quit() {
+	g.app.Stop()
+	os.Exit(0)
 }
 
 func (g *Gui) connect(serialConfig config.SerialConfig) error {
