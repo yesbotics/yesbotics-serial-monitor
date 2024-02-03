@@ -2,7 +2,8 @@ package serialcon
 
 import (
 	"errors"
-	"log"
+	"fmt"
+	"log/slog"
 	"yesbotics/ysm/internal/config"
 
 	"go.bug.st/serial"
@@ -80,7 +81,7 @@ func (m *Serialcon) Close() error {
 	if m.serialPort != nil {
 		err := (*m.serialPort).Close()
 		if err != nil {
-			log.Println("Could not close serial connection:", err)
+			slog.Error(fmt.Sprintf("Could not close serial connection: %s", err))
 			return err
 		}
 	}
@@ -108,7 +109,7 @@ func (m *Serialcon) readSerialData() {
 	for {
 		n, err := (*m.serialPort).Read(buffer)
 		if err != nil {
-			log.Println("Could not read serial data:", err)
+			slog.Error(fmt.Sprintf("\"Could not read serial data: %s", err))
 			return
 		}
 

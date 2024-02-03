@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"log"
+	"log/slog"
 	"os"
 	"yesbotics/ysm/internal/config"
 	"yesbotics/ysm/internal/gui"
@@ -75,7 +75,7 @@ func run(cmd *cobra.Command, args []string) {
 	model := newModel()
 	_, err := gui.New(model.AppConfig)
 	if err != nil {
-		log.Fatal(err)
+		slog.Error(err.Error())
 	}
 }
 

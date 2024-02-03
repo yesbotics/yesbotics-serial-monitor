@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
-	"log"
+	"log/slog"
 	"os"
 	"slices"
 	"strconv"
@@ -134,7 +134,7 @@ func (g *Gui) connect(serialConfig config.SerialConfig) error {
 		baudrate := g.serialConnection.GetCurrentBaudrate()
 
 		if serialConfig.SerialPort == portName && serialConfig.SerialMode.BaudRate == baudrate {
-			log.Println("Port already connected")
+			slog.Info("Port already connected")
 			return nil
 		}
 
@@ -147,7 +147,7 @@ func (g *Gui) connect(serialConfig config.SerialConfig) error {
 			fmt.Sprintf("Could not connect to %s", serialConfig.SerialPort),
 			MessageStatus,
 		)
-		log.Printf("Could not connect to serial device \"%s\".\n", serialConfig.SerialPort)
+		slog.Warn("Could not connect to serial device \"%s\".\n", serialConfig.SerialPort)
 		return err
 	}
 
@@ -224,21 +224,21 @@ func (g *Gui) sendMessage(text string) {
 
 	go func() {
 		if g.serialConnection == nil {
-			log.Println("No connection when tried to send message.")
+			slog.Info("No connection when tried to send message.")
 			return
 		}
 		if !g.serialConnection.IsConnected() {
-			log.Println("Not connected to a serial device.")
+			slog.Info("Not connected to a serial device.")
 			return
 		}
 		write, err := g.serialConnection.Write(bytes)
 		if err != nil {
-			log.Println("Could not write to serial port.")
+			slog.Warn("Could not write to serial port.")
 			g.addTableDataAsync("Could not write to serial port.", MessageError)
 			return
 		}
 		g.addTableDataAsync(text, MessageOut)
-		log.Printf("Wrote %d bytes.", write)
+		slog.Info("Wrote %d bytes.", write)
 	}()
 }
 
@@ -400,9 +400,9 @@ func (g *Gui) getDeviceList() *tview.DropDown {
 	deviceList.SetFieldWidth(50)
 	deviceList.SetTextOptions("", "", "", " (connected)", "- not port selected -")
 	deviceList.SetSelectedFunc(func(text string, index int) {
-		log.Println("selected: ", index)
-		//log.Println("port1: ", g.appConfig.Config.SerialConfig.SerialPort)
-		//log.Println("port2: ", text)
+		slog.Info("Selected device index: ", index)
+		//slog.Println("port1: ", g.appConfig.Config.SerialConfig.SerialPort)
+		//slog.Println("port2: ", text)
 		if index < 0 {
 			return
 		}
@@ -467,7 +467,6 @@ func (g *Gui) hideModal() {
 }
 
 func (g *Gui) clearMessages() {
-	log.Println("clearMessages()")
 	g.messagesTable.Clear()
 }
 

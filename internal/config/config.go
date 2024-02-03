@@ -1,9 +1,10 @@
 package config
 
 import (
+	"fmt"
 	"github.com/spf13/viper"
 	"go.bug.st/serial"
-	"log"
+	"log/slog"
 )
 
 type AppConfig struct {
@@ -50,7 +51,7 @@ func NewConfig() Config {
 	err := viper.UnmarshalKey(ConfigMessageFavorites, &messageFavorites)
 	//err := viper.Unmarshal(&C)
 	if err != nil {
-		log.Fatalf("unable to decode into struct, %v", err)
+		slog.Error(fmt.Sprintf("unable to decode into struct, %v", err))
 		//return Model{}
 	}
 
@@ -75,11 +76,11 @@ func SaveConfig() {
 	if err != nil {
 		err = viper.WriteConfig()
 		if err != nil {
-			log.Println("Could not save config", err)
+			slog.Warn(fmt.Sprintf("Could not save config. %s", err))
 			return
 		}
 	}
-	log.Printf("AppConfig saved")
+	slog.Info("AppConfig saved")
 }
 
 func (fav *MessageFavorite) IsValid() bool {
