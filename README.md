@@ -12,8 +12,15 @@ Yesbotics [Simple Serial Protocol](https://github.com/yesbotics/simple-serial-pr
 If you have `go` installed (Go version >= **1.16**) you can use `go install`
 
 ```
-go install github.com/yesbotics/yesbotics-serial-monitor
+go install github.com/yesbotics/yesbotics-serial-monitor@latest
 ```
+
+### AUR (Arch User Repository)
+
+You can find [the YSM in the AUR](https://aur.archlinux.org/packages/yesbotics-serial-monitor) under the 
+name `yesbotics-serial-monitor`.  
+
+
 
 ## Usage
 
