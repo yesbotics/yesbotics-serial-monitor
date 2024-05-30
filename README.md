@@ -12,7 +12,7 @@ Yesbotics [Simple Serial Protocol](https://github.com/yesbotics/simple-serial-pr
 If you have `go` installed (Go version >= **1.16**) you can use `go install`
 
 ```
-go install https://github.com/yesbotics/yesbotics-serial-monitor
+go install github.com/yesbotics/yesbotics-serial-monitor
 ```
 
 ## Usage
