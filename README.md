@@ -17,10 +17,11 @@ go install github.com/yesbotics/yesbotics-serial-monitor@latest
 
 ### AUR (Arch User Repository)
 
-You can find [the YSM in the AUR](https://aur.archlinux.org/packages/yesbotics-serial-monitor) under the 
-name `yesbotics-serial-monitor`.  
+You can install the ysm using the [AUR](https://aur.archlinux.org/packages/yesbotics-serial-monitor) by running:
 
-
+```
+yay -S yesbotics-serial-monitor
+```
 
 ## Usage
 
